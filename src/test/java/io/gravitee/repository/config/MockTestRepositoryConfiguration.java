@@ -1492,6 +1492,7 @@ public class MockTestRepositoryConfiguration {
         createdCfg.setReferenceId("config-created");
         createdCfg.setNotifier("notifierId");
         createdCfg.setConfig("my new configuration");
+        createdCfg.setUseSystemProxy(true);
         createdCfg.setHooks(Arrays.asList("A", "B", "C"));
         createdCfg.setUpdatedAt(new Date(1439022010883L));
         createdCfg.setCreatedAt(new Date(1439022010883L));
@@ -1505,6 +1506,7 @@ public class MockTestRepositoryConfiguration {
         updatedCfg.setReferenceId("config-to-update");
         updatedCfg.setNotifier("notifierId");
         updatedCfg.setConfig("updated configuration");
+        updatedCfg.setUseSystemProxy(true);
         updatedCfg.setHooks(Arrays.asList("D", "B", "C"));
         updatedCfg.setUpdatedAt(new Date(1479022010883L));
         updatedCfg.setCreatedAt(new Date(1469022010883L));
@@ -1522,6 +1524,7 @@ public class MockTestRepositoryConfiguration {
         foundCfg.setReferenceId("config-to-find");
         foundCfg.setNotifier("notifierId");
         foundCfg.setConfig("my config");
+        foundCfg.setUseSystemProxy(true);
         foundCfg.setHooks(Arrays.asList("A", "B"));
         foundCfg.setUpdatedAt(new Date(1439022010883L));
         foundCfg.setCreatedAt(new Date(1439022010883L));
