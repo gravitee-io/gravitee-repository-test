@@ -49,7 +49,7 @@ public class DictionaryRepositoryTest extends AbstractRepositoryTest {
         dictionary.setName("My dic 1");
         dictionary.setDescription("Description for my dic 1");
         dictionary.setCreatedAt(new Date(1000000000000L));
-        dictionary.setUpdatedAt(new Date(1111111111111L));
+        dictionary.setUpdatedAt(new Date(1111111111110L));
         dictionary.setType(DictionaryType.MANUAL);
 
         int nbDictionariesBeforeCreation = dictionaryRepository.findAll().size();
@@ -65,7 +65,7 @@ public class DictionaryRepositoryTest extends AbstractRepositoryTest {
         Assert.assertEquals("Invalid saved dictionary name.", dictionary.getName(), dictionarySaved.getName());
         Assert.assertEquals("Invalid dictionary description.", dictionary.getDescription(), dictionarySaved.getDescription());
         Assert.assertEquals("Invalid dictionary createdAt.", dictionary.getCreatedAt(), dictionarySaved.getCreatedAt());
-        Assert.assertEquals("Invalid dictionary updatedAt.", dictionary.getUpdatedAt(), dictionarySaved.getUpdatedAt());
+        Assert.assertEquals("Invalid dictionary updatedAt.", dictionary.getUpdatedAt().getTime(), dictionarySaved.getUpdatedAt().getTime());
         Assert.assertEquals("Invalid dictionary type.", dictionary.getType(), dictionarySaved.getType());
     }
 
