@@ -177,4 +177,9 @@ public class MockTestRepositoryConfiguration {
     public ClientRegistrationProviderRepositoryMock clientRegistrationProviderRepositoryMock() throws Exception {
         return new ClientRegistrationProviderRepositoryMock();
     }
+
+    @Bean
+    public WorkflowRepositoryMock workflowRepository() throws Exception {
+        return new WorkflowRepositoryMock();
+    }
 }
