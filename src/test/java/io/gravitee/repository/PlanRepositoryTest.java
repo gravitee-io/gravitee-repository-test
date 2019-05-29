@@ -62,6 +62,7 @@ public class PlanRepositoryTest extends AbstractRepositoryTest {
         assertEquals("grp1", plan.get().getExcludedGroups().get(0));
         assertTrue(plan.get().isCommentRequired());
         assertEquals("What is your project code?", plan.get().getCommentMessage());
+        assertNull(plan.get().getSelectionRule());
     }
 
     @Test
@@ -89,6 +90,7 @@ public class PlanRepositoryTest extends AbstractRepositoryTest {
                 planOAuth2.get().getSecurityDefinition());
         assertEquals("{  \"/\" : [ {    \"methods\" : [ \"GET\", \"POST\", \"PUT\", \"DELETE\", \"HEAD\", \"PATCH\", \"OPTIONS\", \"TRACE\", \"CONNECT\" ],    \"resource-filtering\" : {\"whitelist\":[{\"pattern\":\"/**\",\"methods\":[\"GET\"]}]},    \"enabled\" : true  } ]}",
                 planOAuth2.get().getDefinition());
+        assertEquals("#context.attributes['jwt'].claims['iss'] == 'toto'", planOAuth2.get().getSelectionRule());
     }
 
     @Test

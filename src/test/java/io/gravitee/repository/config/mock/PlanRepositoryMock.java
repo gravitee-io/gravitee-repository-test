@@ -75,6 +75,7 @@ public class PlanRepositoryMock extends AbstractRepositoryMock<PlanRepository> {
         when(plan2.getExcludedGroups()).thenReturn(singletonList("grp1"));
         when(plan2.isCommentRequired()).thenReturn(true);
         when(plan2.getCommentMessage()).thenReturn("What is your project code?");
+        when(plan2.getSelectionRule()).thenReturn(null);
 
         final Plan planOAuth2 = mock(Plan.class);
         when(planOAuth2.getName()).thenReturn("Plan oauth2 name");
@@ -107,6 +108,7 @@ public class PlanRepositoryMock extends AbstractRepositoryMock<PlanRepository> {
         when(createdPlanOAuth2.getSecurityDefinition()).thenReturn("{\"extractPayload\":false,\"checkRequiredScopes\":false,\"requiredScopes\":[],\"oauthResource\":\"OAuth\"}");
         when(createdPlanOAuth2.getDefinition()).thenReturn("{  \"/\" : [ {    \"methods\" : [ \"GET\", \"POST\", \"PUT\", \"DELETE\", \"HEAD\", \"PATCH\", \"OPTIONS\", \"TRACE\", \"CONNECT\" ],    \"resource-filtering\" : {\"whitelist\":[{\"pattern\":\"/**\",\"methods\":[\"GET\"]}]},    \"enabled\" : true  } ]}");
         when(createdPlanOAuth2.isCommentRequired()).thenReturn(true);
+        when(createdPlanOAuth2.getSelectionRule()).thenReturn("#context.attributes['jwt'].claims['iss'] == 'toto'");
 
         final Plan updatedPlan = mock(Plan.class);
         when(updatedPlan.getId()).thenReturn("updated-plan");
