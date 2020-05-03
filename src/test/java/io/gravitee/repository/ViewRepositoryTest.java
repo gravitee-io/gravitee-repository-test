@@ -63,7 +63,7 @@ public class ViewRepositoryTest extends AbstractRepositoryTest {
         final View view = new View();
         view.setId("fd19297e-01a3-4828-9929-7e01a3782809");
         view.setKey("new-view");
-        view.setEnvironment("DEFAULT");
+        view.setEnvironmentId("DEFAULT");
         view.setName("View name");
         view.setDescription("Description for the new view");
         view.setCreatedAt(new Date(1486771200000L));
@@ -79,13 +79,13 @@ public class ViewRepositoryTest extends AbstractRepositoryTest {
 
         Assert.assertEquals(nbViewsBeforeCreation + 1, nbViewsAfterCreation);
 
-        Optional<View> optional = viewRepository.findById("fd19297e-01a3-4828-9929-7e01a3782809", "DEFAULT");
+        Optional<View> optional = viewRepository.findById("fd19297e-01a3-4828-9929-7e01a3782809");
         Assert.assertTrue("View saved not found", optional.isPresent());
 
         final View viewSaved = optional.get();
         Assert.assertEquals("Invalid saved view id.", view.getId(), viewSaved.getId());
         Assert.assertEquals("Invalid saved view key.", view.getKey(), viewSaved.getKey());
-        Assert.assertEquals("Invalid saved environment id.",  view.getEnvironment(), viewSaved.getEnvironment());
+        Assert.assertEquals("Invalid saved environment id.",  view.getEnvironmentId(), viewSaved.getEnvironmentId());
         Assert.assertEquals("Invalid saved view name.", view.getName(), viewSaved.getName());
         Assert.assertEquals("Invalid view description.", view.getDescription(), viewSaved.getDescription());
         Assert.assertEquals("Invalid view createdAt.", view.getCreatedAt(), viewSaved.getCreatedAt());
@@ -98,7 +98,7 @@ public class ViewRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void shouldUpdate() throws Exception {
-        Optional<View> optional = viewRepository.findById("products", "DEFAULT");
+        Optional<View> optional = viewRepository.findById("products");
         Assert.assertTrue("View to update not found", optional.isPresent());
         Assert.assertEquals("Invalid saved view name.", "Products", optional.get().getName());
 
@@ -119,11 +119,11 @@ public class ViewRepositoryTest extends AbstractRepositoryTest {
 
         Assert.assertEquals(nbViewsBeforeUpdate, nbViewsAfterUpdate);
 
-        Optional<View> optionalUpdated = viewRepository.findById("products", "DEFAULT");
+        Optional<View> optionalUpdated = viewRepository.findById("products");
         Assert.assertTrue("View to update not found", optionalUpdated.isPresent());
 
         final View viewUpdated = optionalUpdated.get();
-        Assert.assertEquals("Invalid saved environment id.", view.getEnvironment(), viewUpdated.getEnvironment());
+        Assert.assertEquals("Invalid saved environment id.", view.getEnvironmentId(), viewUpdated.getEnvironmentId());
         Assert.assertEquals("Invalid saved view name.", view.getName(), viewUpdated.getName());
         Assert.assertEquals("Invalid view description.", view.getDescription(), viewUpdated.getDescription());
         Assert.assertEquals("Invalid view createdAt.", view.getCreatedAt(), viewUpdated.getCreatedAt());
@@ -138,7 +138,7 @@ public class ViewRepositoryTest extends AbstractRepositoryTest {
     @Test
     public void shouldDelete() throws Exception {
         int nbViewsBeforeDeletion = viewRepository.findAll().size();
-        viewRepository.delete("international", "DEFAULT");
+        viewRepository.delete("international");
         int nbViewsAfterDeletion = viewRepository.findAll().size();
 
         Assert.assertEquals(nbViewsBeforeDeletion - 1, nbViewsAfterDeletion);
