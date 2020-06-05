@@ -17,7 +17,9 @@ package io.gravitee.repository;
 
 import io.gravitee.repository.config.AbstractRepositoryTest;
 import io.gravitee.repository.exceptions.TechnicalException;
-import io.gravitee.repository.management.model.*;
+import io.gravitee.repository.management.model.Membership;
+import io.gravitee.repository.management.model.MembershipMemberType;
+import io.gravitee.repository.management.model.MembershipReferenceType;
 import org.junit.Test;
 
 import java.util.*;
@@ -41,7 +43,7 @@ public class MembershipRepositoryTest extends AbstractRepositoryTest {
     public void shouldFindById() throws TechnicalException {
         Optional<Membership> membership = membershipRepository.findById("api1_user1");
         assertTrue("There is a membership", membership.isPresent());
-        assertTrue( membership.get().getRoleId().equals("API_OWNER"));
+        assertTrue(membership.get().getRoleId().equals("API_OWNER"));
         assertEquals("api1", membership.get().getReferenceId());
         assertEquals("user1", membership.get().getMemberId());
         assertEquals(API, membership.get().getReferenceType());
@@ -53,7 +55,7 @@ public class MembershipRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void shouldNotFindById() throws TechnicalException {
-        Optional<Membership> membership = membershipRepository.findById( "api1");
+        Optional<Membership> membership = membershipRepository.findById("api1");
         assertFalse(membership.isPresent());
     }
 
@@ -67,7 +69,7 @@ public class MembershipRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void shouldFindAllApisMembers() throws TechnicalException {
-        Set<Membership> memberships = membershipRepository.findByReferencesAndRoleId(MembershipReferenceType.API, Arrays.asList("api2", "api3"),  null);
+        Set<Membership> memberships = membershipRepository.findByReferencesAndRoleId(MembershipReferenceType.API, Arrays.asList("api2", "api3"), null);
         assertNotNull("result must not be null", memberships);
         assertEquals(2, memberships.size());
         Membership membership1 = new Membership("api2_user2", "user2", MembershipMemberType.USER, "api2", MembershipReferenceType.API, "API_OWNER");
@@ -114,6 +116,13 @@ public class MembershipRepositoryTest extends AbstractRepositoryTest {
         assertNotNull("result must not be null", memberships);
         assertTrue(!memberships.isEmpty());
         assertEquals("api1", memberships.iterator().next().getReferenceId());
+    }
+
+    @Test
+    public void shouldNotFindByMemberIdAndMemberTypeAndReferenceType_WithNullMemberId() throws TechnicalException {
+        Set<Membership> memberships = membershipRepository.findByMemberIdAndMemberTypeAndReferenceType(null, MembershipMemberType.USER, MembershipReferenceType.API);
+        assertNotNull("result must not be null", memberships);
+        assertTrue(memberships.isEmpty());
     }
 
     @Test
@@ -228,7 +237,7 @@ public class MembershipRepositoryTest extends AbstractRepositoryTest {
     @Test
     public void shouldDeleteMembers() throws TechnicalException {
 
-        int m1 = membershipRepository.findByMemberIdAndMemberTypeAndReferenceTypeAndReferenceId("user_deleteRef_1", MembershipMemberType.USER,  API, "api_deleteRef").size();
+        int m1 = membershipRepository.findByMemberIdAndMemberTypeAndReferenceTypeAndReferenceId("user_deleteRef_1", MembershipMemberType.USER, API, "api_deleteRef").size();
         int m2 = membershipRepository.findByMemberIdAndMemberTypeAndReferenceTypeAndReferenceId("user_deleteRef_2", MembershipMemberType.USER, API, "api_deleteRef").size();
 
         assertEquals("m1 exists", 1, m1);
@@ -236,7 +245,7 @@ public class MembershipRepositoryTest extends AbstractRepositoryTest {
 
         membershipRepository.deleteMembers(API, "api_deleteRef");
 
-        m1 = membershipRepository.findByMemberIdAndMemberTypeAndReferenceTypeAndReferenceId("user_deleteRef_1", MembershipMemberType.USER,  API, "api_deleteRef").size();
+        m1 = membershipRepository.findByMemberIdAndMemberTypeAndReferenceTypeAndReferenceId("user_deleteRef_1", MembershipMemberType.USER, API, "api_deleteRef").size();
         m2 = membershipRepository.findByMemberIdAndMemberTypeAndReferenceTypeAndReferenceId("user_deleteRef_2", MembershipMemberType.USER, API, "api_deleteRef").size();
 
         assertEquals("m1 doesn't exist", 0, m1);
