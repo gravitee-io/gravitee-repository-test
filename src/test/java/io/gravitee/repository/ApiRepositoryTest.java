@@ -65,6 +65,7 @@ public class ApiRepositoryTest extends AbstractRepositoryTest {
         api.setCreatedAt(parse("11/02/2016"));
         api.setUpdatedAt(parse("12/02/2016"));
         api.setDisableMembershipNotifications(true);
+        api.setDefinitionVersion(2);
 
         apiRepository.create(api);
 
@@ -81,6 +82,7 @@ public class ApiRepositoryTest extends AbstractRepositoryTest {
         assertTrue("Invalid api updateAt.", compareDate(api.getUpdatedAt(), apiSaved.getUpdatedAt()));
         assertEquals("Invalid api lifecycle.", api.getApiLifecycleState(), apiSaved.getApiLifecycleState());
         assertTrue("Invalid api disable membership notifications", apiSaved.isDisableMembershipNotifications());
+        assertEquals("Invalid api definition version.", api.getDefinitionVersion(), apiSaved.getDefinitionVersion());
 
         // test delete
         int nbApplicationBefore = apiRepository.search(null).size();
@@ -113,6 +115,7 @@ public class ApiRepositoryTest extends AbstractRepositoryTest {
         api.setVisibility(Visibility.PRIVATE);
         api.setApiLifecycleState(ApiLifecycleState.UNPUBLISHED);
         api.setDisableMembershipNotifications(false);
+        api.setDefinitionVersion(2);
 
         int nbAPIsBeforeUpdate = apiRepository.search(null).size();
         apiRepository.update(api);
@@ -139,6 +142,7 @@ public class ApiRepositoryTest extends AbstractRepositoryTest {
         assertEquals("Invalid API version.", "New version", apiUpdated.getVersion());
         assertEquals("Invalid API visibility.", Visibility.PRIVATE, apiUpdated.getVisibility());
         assertEquals("Invalid API lifecycle state.", ApiLifecycleState.UNPUBLISHED, apiUpdated.getApiLifecycleState());
+        assertEquals("Invalid API definition version.", 2, apiUpdated.getDefinitionVersion().intValue());
         assertFalse("Invalid API disable membership notifications", apiUpdated.isDisableMembershipNotifications());
     }
 
@@ -276,7 +280,7 @@ public class ApiRepositoryTest extends AbstractRepositoryTest {
                 collect(toList()).
                 containsAll(asList("grouped-api", "api-to-findById")));
     }
-    
+
     @Test
     public void shouldFindByVersion() {
         List<Api> apis = apiRepository.search(new ApiCriteria.Builder().version("1").build());

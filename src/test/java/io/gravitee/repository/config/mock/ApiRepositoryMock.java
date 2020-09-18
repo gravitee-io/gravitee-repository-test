@@ -74,6 +74,7 @@ public class ApiRepositoryMock extends AbstractRepositoryMock<ApiRepository> {
         when(apiUpdated.getVisibility()).thenReturn(Visibility.PRIVATE);
         when(apiUpdated.getApiLifecycleState()).thenReturn(ApiLifecycleState.UNPUBLISHED);
         when(apiUpdated.isDisableMembershipNotifications()).thenReturn(false);
+        when(apiUpdated.getDefinitionVersion()).thenReturn(2);
 
         when(apiRepository.findById("api-to-update")).thenReturn(of(apiToUpdate), of(apiUpdated));
 
@@ -92,6 +93,7 @@ public class ApiRepositoryMock extends AbstractRepositoryMock<ApiRepository> {
         when(newApi.getUpdatedAt()).thenReturn(parse("12/02/2016"));
         when(newApi.getApiLifecycleState()).thenReturn(ApiLifecycleState.CREATED);
         when(newApi.isDisableMembershipNotifications()).thenReturn(true);
+        when(newApi.getDefinitionVersion()).thenReturn(2);
         when(apiRepository.findById("newApi-Id")).thenReturn(of(newApi), empty());
 
         final Api groupedApi = mock(Api.class);
