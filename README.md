@@ -1,10 +1,14 @@
-[![Build Status](https://ci.gravitee.io/buildStatus/icon?job=gravitee-io/gravitee-repository-test/master)](https://ci.gravitee.io/job/gravitee-io/job/gravitee-repository-test/job/master)
+# ⚠️ DEPRECATED
 
-# Gravitee Test Repository
+This repository is no longer active, all the sources have been moved to a [new monorepo](https://github.com/gravitee-io/gravitee-api-management/tree/master/gravitee-apim-repository/gravitee-apim-repository-test).
+
+The new repository will be become the single GitHub repository for everything related to Gravitee.io API Management.
+
+## Gravitee Test Repository
 
 This repository is used to ensure repository test coverage and to provide a minimal set of tests on each repository implementation.
 
-## Requirement
+### Requirement
 
 The minimum requirement is :
  * Maven3 
@@ -15,7 +19,7 @@ For user gravitee snapshot, You need the declare the following repository in you
 https://oss.sonatype.org/content/repositories/snapshots
 
 
-## Building
+### Building
 
 ```
 $ git clone https://github.com/gravitee-io/gravitee-repository-test.git
@@ -23,7 +27,7 @@ $ cd gravitee-repository-test
 $ mvn clean package
 ```
 
-## How to use on your own implementation?
+### How to use on your own implementation?
 
 Add this dependency in scope test:
 
